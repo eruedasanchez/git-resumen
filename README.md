@@ -276,6 +276,155 @@ $ git add .gitignore
 $ git commit -m "Se añade el .gitignore"
 ```
 
+## Git diff
+
+Ahora, supongamos que modifico el archivo **hellogit.py** de la siguiente manera (agrego al print with changes!):
+
+![Git diff](https://i.postimg.cc/fLykSB6J/git-21.jpg "Modificación archivo .hellogit.py")
+
+Ahora, supongamos que comence a programar otros archivos pero no estoy seguro de querer hacerle una fotografia/versionar el archivo **hellogit.py** con el cambio realizado. 
+
+Entonces, para ver que cambios realice desde el ultimo commit puedo ejecutar el comando:
+
+```bash
+$ git diff
+```
+
+Obteniendo el siguiente resultado:
+
+![Git diff](https://i.postimg.cc/GhdPH1X2/git-22.jpg "Resultado de ejecutar git diff")
+
+Podemos observar que nos esta indicando que estamos modificando (eliminando y agregando lineas de código) dos archivos: el archivo **README.md** con el nuevo texto que estamos escribiendo y el archivo **hellogit.py** con el agregado de "with changes!" al print.
+
+## Desplazamiento
+
+Comenzamos ejecutando el comando **git log** para ver nuestro historial de cambios:
+
+![Desplazamiento](https://i.postimg.cc/jdYWjQd4/git-23.jpg "Historial de cambios git log")
+
+Ahora, supongamos que queremos volver al estado donde se realizo el primer commit, es decir, al commit con el numero de hash **b243a1a0f5dbc446e78bb39ed0254a895127d6b5**.
+
+Para ello, ejecutamos el comando:
+
+```bash
+$ git checkout b243a1a0f5dbc446e78bb39ed0254a895127d6b5
+```
+
+Obteniendo el siguiente error:
+
+Esto se debe a que los archivos **hellogit.py** y **README.md** fueron modificados pero sus cambios nunca fueron commiteados.
+
+![Desplazamiento](https://i.postimg.cc/52CFg4Nb/git-24.jpg "Error git checkout")
+
+Para ello podemos ejecutar:
+
+```bash
+$ git checkout hellogit.py
+$ git checkout README.md
+```
+
+Ahora que ya tenemos todo actualizado, podemos volver al estado del primer commit ejecutando el comando:
+
+```bash
+$ git checkout b243a1a0f5dbc446e78bb39ed0254a895127d6b5
+```
+
+Obteniendo el siguiente resultado:
+
+![Desplazamiento](https://i.postimg.cc/HxdgK2wB/git-25.jpg "Ejecucion git checkout b243a1a0f5dbc446e78bb39ed0254a895127d6b5")
+
+Ahora, si queremos volver al ultimo commit, ejecutamos el comando:
+
+```bash
+$ git checkout HEAD
+```
+
+Ejecutamos **git log** para chequear en que estado nos encontramos:
+
+![Desplazamiento](https://i.postimg.cc/sXYpfVZ3/git-26.jpg "Ejecucion git log luego git checkout HEAD")
+
+Y observamos que de esta manera, solo movemos la cabeza (HEAD) del proyecto al estado del primer commit.
+
+Ahora, ejecutamos **git tree** y observamos lo siguiente:
+
+![Desplazamiento](https://i.postimg.cc/nzXq7v5c/git-27.jpg "Ejecucion git tree luego git checkout HEAD")
+
+Por lo tanto, si quiero volver al ultimo estado de la rama (donde apunta main), coloco la cabeza (HEAD) de la rama
+Apuntando allí de la siguiente manera:
+
+```bash
+$ git checkout 9f52593
+```
+
+Y si ejecutamos **git tree** nuevamente, obtenemos el resultado esperado.
+
+![Desplazamiento](https://i.postimg.cc/X7s7MTqm/git-28.jpg "Ejecucion git tree luego git checkout 9f52593")
+
+De este modo, se vuelven a restablecer los archivos **hellogit2.py** y **.gitignore**.
+
+## Git reset hard y git reflog
+
+Ahora, me encuentro al final de la rama. Supongamos que cometi un error con los ultimos tres commits y quiero volver al estado correspondiente al segundo commit, es decir, al estado que tiene el hash **f7d6db2**. Para ello, puedo ejecutar el comando:
+
+```bash
+$ git reset --hard f7d6db2
+```
+
+![Git reset hard y git reflog](https://i.postimg.cc/N05J1LyD/git-29.jpg "Ejecucion git reset --hard f7d6db2")
+
+Podemos observar ahora como la cabeza (HEAD) de la rama ahora esta apuntando al estado correspondiente al segundo commit y se produce como una especie de borrado de todos los commits que se realizaron luego.
+
+Ahora, si quiero ver toda la actividad que estuve realizando porque quiero volver al estado correspondiente al ultimo commit ejecuto el siguiente comando:
+
+```bash
+$ git reflog
+```
+
+![Git reflog](https://i.postimg.cc/Y09H5YbF/git-30.jpg "Ejecucion git reflog")
+
+Entonces, podemos ejecutar los comandos:
+
+```bash
+$ git checkout 9f52593
+$ git checkout main
+```
+ Para volver al estado correspondiente al ultimo commit y obtenemos lo que esperamos.
+
+![Git reflog](https://i.postimg.cc/qvzWh72x/git-31.jpg "Ejecucion git tree luego de que HEAD vuelva a apuntar a main")
+
+## Git tag
+
+Los tags se utilizan para guardar referencias importantes comno por ejemplo las versiones en las aplicaciones. 
+
+Por ejemplo, puedo crear un tag que referencie al ultimo commit ejecutando el siguiente comando:
+
+```bash
+$ git tag "clase_1"
+```
+
+Obteniendo el siguiente resultado:
+
+![Git tag](https://i.postimg.cc/vm4VXnSZ/git-32.jpg "Ejecucion git tag clase_1")
+
+Con esto podemos observamos que la cabeza (HEAD) de la rama main está apuntando al ultimo commit pero ademas tiene un **tag** asociado llamado **clase_1**. Es decir, le colocamos un nombre identificatorio al ultimo commit.
+
+Ahora, voy a crear un nuevo archivo que voy a llamar **hellogit3.py** con un print como se muestra a continuación.
+
+![Git tag](https://i.postimg.cc/MGWbzXT7/git-33.jpg "Creacion archivo hellogit3.py")
+
+Una vez creado el archivo, vamos a agregar todo al staging area ejecutando el siguiente comando:
+
+```bash
+$ git add .
+```
+
+El comando **git add .** permite agregar a todos los archivos que esten pendientes al staging area.
+
+
+
+
+
+
 
 
 
